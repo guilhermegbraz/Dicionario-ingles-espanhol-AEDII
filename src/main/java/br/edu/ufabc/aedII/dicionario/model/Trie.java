@@ -55,11 +55,11 @@ public class Trie implements SearchStruct{
 
     public List<String> search(String word) {
         TrieNode current = root;
-        for (char ch : word.toCharArray()) {
-            if (!current.getChildren().containsKey(ch)) {
+        for (int i = 0; i < word.length(); i++) {
+            if (!current.getChildren().containsKey(word.charAt(i))) {
                 return null; // Palavra não encontrada
             }
-            current = current.getChildren().get(ch);
+            current = current.getChildren().get(word.charAt(i));
         }
 
         return current.isEndOfWord() ? current.getMeaning() : null;

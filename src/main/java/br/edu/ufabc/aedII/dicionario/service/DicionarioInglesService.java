@@ -27,20 +27,20 @@ public class DicionarioInglesService {
         String nomeArquivo = this.getNomeArquivo(palavraBuscada);
         String container = this.getNomeContainer(palavraBuscada);
         long tamanho = this.azureBlobStorageRepository.getTamanhoArquivo(container, nomeArquivo);
+        float tempoTotal = 0f;
 
         int pedacoAtual = 0;
         boolean palavraEncontrada = false;
-        List<String> definicao = null;
         SearchStruct estrutura = this.structuresFactory.getEstrutura(tipoEstrutura);
 
         while (pedacoAtual < NUMERO_DE_PEDACOS && !palavraEncontrada) {
             this.preencherEstruturaComDadosDoArquivo(container, nomeArquivo, pedacoAtual, tamanho, estrutura);
 
             long inicio = System.nanoTime();
-            definicao = estrutura.search(palavraBuscada);
+            List<String> definicao = estrutura.search(palavraBuscada);
             long fim = System.nanoTime();
 
-            float tempoTotal = (fim - inicio) / 1000f;
+            tempoTotal = (fim - inicio) / 1000f;
 
             if (definicao != null) palavraEncontrada = true;
             else pedacoAtual++;
@@ -51,8 +51,7 @@ public class DicionarioInglesService {
                 return new DicionarioResposta(palavraBuscada, definicao.toString(),tempoTotal + " microssegundos");
         }
 
-        return new DicionarioResposta(palavraBuscada, "A palavra não foi encontrada", "-");
-
+        return new DicionarioResposta(palavraBuscada, "A palavra não foi encontrada", tempoTotal+ " microssegundos");
     }
 
     private void preencherEstruturaComDadosDoArquivo(String container, String nomeArquivo, int pedacoAtual, long tamanho, SearchStruct arvoreDigital) {

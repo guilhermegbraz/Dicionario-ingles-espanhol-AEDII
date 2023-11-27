@@ -9,7 +9,7 @@ public class StructuresFactory {
     public SearchStruct getEstrutura(SearchStructures structure) {
         switch (structure) {
             case TRIE -> {
-                return new Trie();
+                return new TrieArray();
             } case REED_BLACK -> {
                 return new ReedBlackTree();
             } case AVL -> {
