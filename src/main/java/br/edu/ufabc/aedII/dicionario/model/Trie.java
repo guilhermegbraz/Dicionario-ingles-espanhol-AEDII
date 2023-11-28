@@ -43,10 +43,10 @@ public class Trie implements SearchStruct{
 
     public void insert(String word, List<String> meaning) {
         TrieNode current = root;
-
-        for (char ch : word.toCharArray()) {
-            current.getChildren().computeIfAbsent(ch, c -> new TrieNode());
-            current = current.getChildren().get(ch);
+        for (int i = 0; i < word.length(); i++) {
+            char c = word.charAt(i);
+            current.getChildren().computeIfAbsent(c, ch -> new TrieNode());
+            current = current.getChildren().get(c);
         }
 
         current.setEndOfWord(true);
@@ -56,9 +56,8 @@ public class Trie implements SearchStruct{
     public List<String> search(String word) {
         TrieNode current = root;
         for (int i = 0; i < word.length(); i++) {
-            if (!current.getChildren().containsKey(word.charAt(i))) {
-                return null; // Palavra não encontrada
-            }
+            if (!current.getChildren().containsKey(word.charAt(i))) return null;
+
             current = current.getChildren().get(word.charAt(i));
         }
 
@@ -79,7 +78,6 @@ public class Trie implements SearchStruct{
             clearRecursively(child);
         }
 
-        // Clear current node
         node.getChildren().clear();
         node.setMeaning(null);
         node.setEndOfWord(false);
@@ -103,7 +101,7 @@ public class Trie implements SearchStruct{
 
             prefix.append(childChar);
             printRecursively(childNode, prefix);
-            prefix.deleteCharAt(prefix.length() - 1); // Backtrack
+            prefix.deleteCharAt(prefix.length() - 1);
         }
     }
 }

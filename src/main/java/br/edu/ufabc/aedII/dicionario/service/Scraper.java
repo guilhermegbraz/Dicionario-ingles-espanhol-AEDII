@@ -53,13 +53,12 @@ public class Scraper {
             assert article != null;
 
             List<String> definicao = Stream.of(article.text().split("\n")).filter(s -> s.length() > 0).toList();
-            System.out.println(definicao);
+
             return definicao.toString();
         } catch (IOException e) {
-            System.out.println("Exceção encontrada");
+            System.err.println("Exceção lançada ao enviar requisição HTTP à aplicação web de dicionario em espanhol");
             e.printStackTrace();
         }
-        return "Definição da palavra não encontrada";
+        return "A palavra foi encontrada no dicionario e esta correta, porém não foi possível consultar seu significado";
     }
 }
-
