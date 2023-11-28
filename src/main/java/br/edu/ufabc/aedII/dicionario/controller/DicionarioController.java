@@ -71,7 +71,7 @@ public class DicionarioController {
     @GetMapping("/espanhol/red_black/{palavra}")
     public ResponseEntity<DicionarioResposta> redBlackTreeSearchSpanish(@PathVariable String palavra) {
         DicionarioResposta dicionarioResposta =
-                this.dicionarioInglesService.buscarNoDicionario(palavra.toLowerCase(), SearchStructures.REED_BLACK);
+                this.dicionarioEspanholService.buscarNoDicionario(palavra.toLowerCase(), SearchStructures.REED_BLACK);
 
         return ResponseEntity.ok(dicionarioResposta);
     }
@@ -79,7 +79,7 @@ public class DicionarioController {
     @GetMapping("/espanhol/avl/{palavra}")
     public ResponseEntity<DicionarioResposta> avlTreeSearchSpanish(@PathVariable String palavra) {
         DicionarioResposta dicionarioResposta =
-                this.dicionarioInglesService.buscarNoDicionario(palavra.toLowerCase(), SearchStructures.AVL);
+                this.dicionarioEspanholService.buscarNoDicionario(palavra.toLowerCase(), SearchStructures.AVL);
 
         return ResponseEntity.ok(dicionarioResposta);
     }
@@ -87,7 +87,7 @@ public class DicionarioController {
     @GetMapping("/espanhol/hashmap/{palavra}")
     public ResponseEntity<DicionarioResposta> hashmapSearchSpanish(@PathVariable String palavra) {
         DicionarioResposta dicionarioResposta =
-                this.dicionarioInglesService.buscarNoDicionario(palavra.toLowerCase(), SearchStructures.HASHMAP);
+                this.dicionarioEspanholService.buscarNoDicionario(palavra.toLowerCase(), SearchStructures.HASHMAP);
 
         return ResponseEntity.ok(dicionarioResposta);
     }
@@ -95,7 +95,7 @@ public class DicionarioController {
     @GetMapping("/espanhol/array_list/{palavra}")
     public ResponseEntity<DicionarioResposta> arrayListSearchSpanish(@PathVariable String palavra) {
         DicionarioResposta dicionarioResposta =
-                this.dicionarioInglesService.buscarNoDicionario(palavra.toLowerCase(), SearchStructures.HASHMAP);
+                this.dicionarioEspanholService.buscarNoDicionario(palavra.toLowerCase(), SearchStructures.HASHMAP);
 
         return ResponseEntity.ok(dicionarioResposta);
     }
