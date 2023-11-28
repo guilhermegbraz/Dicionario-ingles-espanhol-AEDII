@@ -1,8 +1,8 @@
 package br.edu.ufabc.aedII.dicionario.controller;
 
 import br.edu.ufabc.aedII.dicionario.model.SearchStructures;
-import br.edu.ufabc.aedII.dicionario.service.DicionarioEspanholService;
-import br.edu.ufabc.aedII.dicionario.service.DicionarioInglesService;
+import br.edu.ufabc.aedII.dicionario.repository.Idiomas;
+import br.edu.ufabc.aedII.dicionario.service.BuscaDicionarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,14 +16,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class DicionarioController {
 
     @Autowired
-    DicionarioInglesService dicionarioInglesService;
-    @Autowired
-    DicionarioEspanholService dicionarioEspanholService;
+    BuscaDicionarioService buscaDicionarioService;
 
     @GetMapping("/ingles/{palavra}")
     public ResponseEntity<DicionarioResposta> trieSearchEnglish(@PathVariable String palavra) {
         DicionarioResposta dicionarioResposta =
-                this.dicionarioInglesService.buscarNoDicionario(palavra.toLowerCase(), SearchStructures.TRIE);
+                this.buscaDicionarioService.buscarNoDicionario(Idiomas.ENGLISH, palavra.toLowerCase(), SearchStructures.TRIE);
 
         return ResponseEntity.ok(dicionarioResposta);
     }
@@ -31,7 +29,7 @@ public class DicionarioController {
     @GetMapping("/ingles/red_black/{palavra}")
     public ResponseEntity<DicionarioResposta> redBlackTreeSearchEnglish(@PathVariable String palavra) {
         DicionarioResposta dicionarioResposta =
-                this.dicionarioInglesService.buscarNoDicionario(palavra.toLowerCase(), SearchStructures.REED_BLACK);
+                this.buscaDicionarioService.buscarNoDicionario(Idiomas.ENGLISH, palavra.toLowerCase(), SearchStructures.REED_BLACK);
 
         return ResponseEntity.ok(dicionarioResposta);
     }
@@ -39,7 +37,7 @@ public class DicionarioController {
     @GetMapping("/ingles/avl/{palavra}")
     public ResponseEntity<DicionarioResposta> avlTreeSearchEnglish(@PathVariable String palavra) {
         DicionarioResposta dicionarioResposta =
-                this.dicionarioInglesService.buscarNoDicionario(palavra.toLowerCase(), SearchStructures.AVL);
+                this.buscaDicionarioService.buscarNoDicionario(Idiomas.ENGLISH, palavra.toLowerCase(), SearchStructures.AVL);
 
         return ResponseEntity.ok(dicionarioResposta);
     }
@@ -47,7 +45,7 @@ public class DicionarioController {
     @GetMapping("/ingles/hashmap/{palavra}")
     public ResponseEntity<DicionarioResposta> hashmapSearchEnglish(@PathVariable String palavra) {
         DicionarioResposta dicionarioResposta =
-                this.dicionarioInglesService.buscarNoDicionario(palavra.toLowerCase(), SearchStructures.HASHMAP);
+                this.buscaDicionarioService.buscarNoDicionario(Idiomas.ENGLISH, palavra.toLowerCase(), SearchStructures.HASHMAP);
 
         return ResponseEntity.ok(dicionarioResposta);
     }
@@ -55,7 +53,7 @@ public class DicionarioController {
     @GetMapping("/ingles/array_list/{palavra}")
     public ResponseEntity<DicionarioResposta> arrayListSearchEnglish(@PathVariable String palavra) {
         DicionarioResposta dicionarioResposta =
-                this.dicionarioInglesService.buscarNoDicionario(palavra.toLowerCase(), SearchStructures.HASHMAP);
+                this.buscaDicionarioService.buscarNoDicionario(Idiomas.ENGLISH, palavra.toLowerCase(), SearchStructures.HASHMAP);
 
         return ResponseEntity.ok(dicionarioResposta);
     }
@@ -63,7 +61,7 @@ public class DicionarioController {
     @GetMapping("/espanhol/{palavra}")
     public ResponseEntity<DicionarioResposta> trieSearchSpanish(@PathVariable String palavra) {
         DicionarioResposta dicionarioResposta =
-                this.dicionarioEspanholService.buscarNoDicionario(palavra.toLowerCase(), SearchStructures.TRIE);
+                this.buscaDicionarioService.buscarNoDicionario(Idiomas.SPANISH, palavra.toLowerCase(), SearchStructures.TRIE);
 
         return ResponseEntity.ok(dicionarioResposta);
     }
@@ -71,7 +69,7 @@ public class DicionarioController {
     @GetMapping("/espanhol/red_black/{palavra}")
     public ResponseEntity<DicionarioResposta> redBlackTreeSearchSpanish(@PathVariable String palavra) {
         DicionarioResposta dicionarioResposta =
-                this.dicionarioEspanholService.buscarNoDicionario(palavra.toLowerCase(), SearchStructures.REED_BLACK);
+                this.buscaDicionarioService.buscarNoDicionario(Idiomas.SPANISH,palavra.toLowerCase(), SearchStructures.REED_BLACK);
 
         return ResponseEntity.ok(dicionarioResposta);
     }
@@ -79,7 +77,7 @@ public class DicionarioController {
     @GetMapping("/espanhol/avl/{palavra}")
     public ResponseEntity<DicionarioResposta> avlTreeSearchSpanish(@PathVariable String palavra) {
         DicionarioResposta dicionarioResposta =
-                this.dicionarioEspanholService.buscarNoDicionario(palavra.toLowerCase(), SearchStructures.AVL);
+                this.buscaDicionarioService.buscarNoDicionario(Idiomas.SPANISH,palavra.toLowerCase(), SearchStructures.AVL);
 
         return ResponseEntity.ok(dicionarioResposta);
     }
@@ -87,7 +85,7 @@ public class DicionarioController {
     @GetMapping("/espanhol/hashmap/{palavra}")
     public ResponseEntity<DicionarioResposta> hashmapSearchSpanish(@PathVariable String palavra) {
         DicionarioResposta dicionarioResposta =
-                this.dicionarioEspanholService.buscarNoDicionario(palavra.toLowerCase(), SearchStructures.HASHMAP);
+                this.buscaDicionarioService.buscarNoDicionario(Idiomas.SPANISH,palavra.toLowerCase(), SearchStructures.HASHMAP);
 
         return ResponseEntity.ok(dicionarioResposta);
     }
@@ -95,7 +93,7 @@ public class DicionarioController {
     @GetMapping("/espanhol/array_list/{palavra}")
     public ResponseEntity<DicionarioResposta> arrayListSearchSpanish(@PathVariable String palavra) {
         DicionarioResposta dicionarioResposta =
-                this.dicionarioEspanholService.buscarNoDicionario(palavra.toLowerCase(), SearchStructures.HASHMAP);
+                this.buscaDicionarioService.buscarNoDicionario(Idiomas.SPANISH,palavra.toLowerCase(), SearchStructures.HASHMAP);
 
         return ResponseEntity.ok(dicionarioResposta);
     }
