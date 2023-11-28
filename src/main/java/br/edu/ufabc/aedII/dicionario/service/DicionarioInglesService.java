@@ -3,7 +3,7 @@ package br.edu.ufabc.aedII.dicionario.service;
 import br.edu.ufabc.aedII.dicionario.controller.DicionarioResposta;
 import br.edu.ufabc.aedII.dicionario.model.SearchStruct;
 import br.edu.ufabc.aedII.dicionario.model.SearchStructures;
-import br.edu.ufabc.aedII.dicionario.model.Trie;
+import br.edu.ufabc.aedII.dicionario.model.StructuresFactory;
 import br.edu.ufabc.aedII.dicionario.repository.AzureBlobStorageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
