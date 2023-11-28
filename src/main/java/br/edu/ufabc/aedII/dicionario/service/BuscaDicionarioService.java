@@ -69,7 +69,6 @@ public class BuscaDicionarioService {
     }
 
     public DicionarioResposta buscarNoDicionarioCompleto(Idiomas idioma, String palavraBuscada, SearchStructures tipoEstrutura) {
-        String tempoTotal = "";
         SearchStruct dicionario = this.dictionaryRepository
                 .getDicionarioComDadosDoArquivoCompleto(Intervalo.A_TO_Z, idioma, tipoEstrutura);
 
@@ -77,7 +76,7 @@ public class BuscaDicionarioService {
         List<String> definicoes = dicionario.search(palavraBuscada);
         long fim = System.nanoTime();
 
-        tempoTotal = this.converterTempoExecucao(inicio, fim);
+        String tempoTotal = this.converterTempoExecucao(inicio, fim);
 
         if (definicoes != null) {
             String definicaoPalavra = definicoes.toString();

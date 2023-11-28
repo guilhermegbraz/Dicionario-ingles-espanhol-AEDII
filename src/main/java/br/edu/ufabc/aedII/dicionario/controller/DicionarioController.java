@@ -97,4 +97,44 @@ public class DicionarioController {
 
         return ResponseEntity.ok(dicionarioResposta);
     }
+
+    @GetMapping("/completo/ingles/{palavra}")
+    public ResponseEntity<DicionarioResposta> trieSearchEnglishCompleto(@PathVariable String palavra) {
+        DicionarioResposta dicionarioResposta =
+                this.buscaDicionarioService.buscarNoDicionarioCompleto(Idiomas.ENGLISH, palavra.toLowerCase(), SearchStructures.TRIE);
+
+        return ResponseEntity.ok(dicionarioResposta);
+    }
+
+    @GetMapping("/completo/ingles/red_black/{palavra}")
+    public ResponseEntity<DicionarioResposta> redBlackTreeSearchEnglishCompleto(@PathVariable String palavra) {
+        DicionarioResposta dicionarioResposta =
+                this.buscaDicionarioService.buscarNoDicionarioCompleto(Idiomas.ENGLISH, palavra.toLowerCase(), SearchStructures.REED_BLACK);
+
+        return ResponseEntity.ok(dicionarioResposta);
+    }
+
+    @GetMapping("/completo/ingles/avl/{palavra}")
+    public ResponseEntity<DicionarioResposta> avlTreeSearchEnglishCompleto(@PathVariable String palavra) {
+        DicionarioResposta dicionarioResposta =
+                this.buscaDicionarioService.buscarNoDicionarioCompleto(Idiomas.ENGLISH, palavra.toLowerCase(), SearchStructures.AVL);
+
+        return ResponseEntity.ok(dicionarioResposta);
+    }
+
+    @GetMapping("/completo/ingles/hashmap/{palavra}")
+    public ResponseEntity<DicionarioResposta> hashmapSearchEnglishCompleto(@PathVariable String palavra) {
+        DicionarioResposta dicionarioResposta =
+                this.buscaDicionarioService.buscarNoDicionarioCompleto(Idiomas.ENGLISH, palavra.toLowerCase(), SearchStructures.HASHMAP);
+
+        return ResponseEntity.ok(dicionarioResposta);
+    }
+
+    @GetMapping("/completo/ingles/array_list/{palavra}")
+    public ResponseEntity<DicionarioResposta> arrayListSearchEnglishCompleto(@PathVariable String palavra) {
+        DicionarioResposta dicionarioResposta =
+                this.buscaDicionarioService.buscarNoDicionarioCompleto(Idiomas.ENGLISH, palavra.toLowerCase(), SearchStructures.HASHMAP);
+
+        return ResponseEntity.ok(dicionarioResposta);
+    }
 }
