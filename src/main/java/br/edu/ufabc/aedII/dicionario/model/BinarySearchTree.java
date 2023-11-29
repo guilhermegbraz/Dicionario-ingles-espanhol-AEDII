@@ -32,8 +32,8 @@ public class BinarySearchTree implements SearchStruct {
     private NodeDictionary search(NodeDictionary root, String word) {
         if (root != null) {
             if (root.key.equals(word)) return root;
-            else if (root.key.compareTo(word) > 0) return this.search(root, word);
-            else if (root.key.compareTo(word) < 0) return this.search(root, word);
+            else if (root.key.compareTo(word) > 0) return this.search(root.left, word);
+            else if (root.key.compareTo(word) < 0) return this.search(root.right, word);
         }
 
         return root;
