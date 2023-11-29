@@ -42,6 +42,14 @@ public class DicionarioController {
         return ResponseEntity.ok(dicionarioResposta);
     }
 
+    @GetMapping("/ingles/bst/{palavra}")
+    public ResponseEntity<DicionarioResposta> bsTreeEnglish(@PathVariable String palavra) {
+        DicionarioResposta dicionarioResposta =
+                this.buscaDicionarioService.buscarNoDicionario(Idiomas.ENGLISH, palavra.toLowerCase(), SearchStructures.BST);
+
+        return ResponseEntity.ok(dicionarioResposta);
+    }
+
     @GetMapping("/ingles/hashmap/{palavra}")
     public ResponseEntity<DicionarioResposta> hashmapSearchEnglish(@PathVariable String palavra) {
         DicionarioResposta dicionarioResposta =
@@ -78,6 +86,14 @@ public class DicionarioController {
     public ResponseEntity<DicionarioResposta> avlTreeSearchSpanish(@PathVariable String palavra) {
         DicionarioResposta dicionarioResposta =
                 this.buscaDicionarioService.buscarNoDicionario(Idiomas.SPANISH,palavra.toLowerCase(), SearchStructures.AVL);
+
+        return ResponseEntity.ok(dicionarioResposta);
+    }
+
+    @GetMapping("/espanhol/bst/{palavra}")
+    public ResponseEntity<DicionarioResposta> bsTreeSpanish(@PathVariable String palavra) {
+        DicionarioResposta dicionarioResposta =
+                this.buscaDicionarioService.buscarNoDicionario(Idiomas.SPANISH, palavra.toLowerCase(), SearchStructures.BST);
 
         return ResponseEntity.ok(dicionarioResposta);
     }
@@ -122,6 +138,14 @@ public class DicionarioController {
         return ResponseEntity.ok(dicionarioResposta);
     }
 
+    @GetMapping("/completo/ingles/bst/{palavra}")
+    public ResponseEntity<DicionarioResposta> bsTreeEnglishCompleto(@PathVariable String palavra) {
+        DicionarioResposta dicionarioResposta =
+                this.buscaDicionarioService.buscarNoDicionario(Idiomas.ENGLISH, palavra.toLowerCase(), SearchStructures.BST);
+
+        return ResponseEntity.ok(dicionarioResposta);
+    }
+
     @GetMapping("/completo/ingles/hashmap/{palavra}")
     public ResponseEntity<DicionarioResposta> hashmapSearchEnglishCompleto(@PathVariable String palavra) {
         DicionarioResposta dicionarioResposta =
@@ -133,7 +157,55 @@ public class DicionarioController {
     @GetMapping("/completo/ingles/array_list/{palavra}")
     public ResponseEntity<DicionarioResposta> arrayListSearchEnglishCompleto(@PathVariable String palavra) {
         DicionarioResposta dicionarioResposta =
-                this.buscaDicionarioService.buscarNoDicionarioCompleto(Idiomas.ENGLISH, palavra.toLowerCase(), SearchStructures.HASHMAP);
+                this.buscaDicionarioService.buscarNoDicionarioCompleto(Idiomas.ENGLISH, palavra.toLowerCase(), SearchStructures.ARRAY_BS);
+
+        return ResponseEntity.ok(dicionarioResposta);
+    }
+
+    @GetMapping("/completo/espanhol/{palavra}")
+    public ResponseEntity<DicionarioResposta> trieSearchSpanishCompleto(@PathVariable String palavra) {
+        DicionarioResposta dicionarioResposta =
+                this.buscaDicionarioService.buscarNoDicionarioCompleto(Idiomas.SPANISH, palavra.toLowerCase(), SearchStructures.TRIE);
+
+        return ResponseEntity.ok(dicionarioResposta);
+    }
+
+    @GetMapping("/completo/espanhol/red_black/{palavra}")
+    public ResponseEntity<DicionarioResposta> redBlackTreeSearchSpanishCompleto(@PathVariable String palavra) {
+        DicionarioResposta dicionarioResposta =
+                this.buscaDicionarioService.buscarNoDicionarioCompleto(Idiomas.SPANISH, palavra.toLowerCase(), SearchStructures.REED_BLACK);
+
+        return ResponseEntity.ok(dicionarioResposta);
+    }
+
+    @GetMapping("/completo/espanhol/avl/{palavra}")
+    public ResponseEntity<DicionarioResposta> avlTreeSearchSpanishCompleto(@PathVariable String palavra) {
+        DicionarioResposta dicionarioResposta =
+                this.buscaDicionarioService.buscarNoDicionarioCompleto(Idiomas.SPANISH, palavra.toLowerCase(), SearchStructures.AVL);
+
+        return ResponseEntity.ok(dicionarioResposta);
+    }
+
+    @GetMapping("/completo/espanhol/bst/{palavra}")
+    public ResponseEntity<DicionarioResposta> bsTreeSpanishCompleto(@PathVariable String palavra) {
+        DicionarioResposta dicionarioResposta =
+                this.buscaDicionarioService.buscarNoDicionario(Idiomas.SPANISH, palavra.toLowerCase(), SearchStructures.BST);
+
+        return ResponseEntity.ok(dicionarioResposta);
+    }
+
+    @GetMapping("/completo/espanhol/hashmap/{palavra}")
+    public ResponseEntity<DicionarioResposta> hashmapSearchSpanishCompleto(@PathVariable String palavra) {
+        DicionarioResposta dicionarioResposta =
+                this.buscaDicionarioService.buscarNoDicionarioCompleto(Idiomas.SPANISH, palavra.toLowerCase(), SearchStructures.HASHMAP);
+
+        return ResponseEntity.ok(dicionarioResposta);
+    }
+
+    @GetMapping("/completo/espanhol/array_list/{palavra}")
+    public ResponseEntity<DicionarioResposta> arrayListSearchSpanishCompleto(@PathVariable String palavra) {
+        DicionarioResposta dicionarioResposta =
+                this.buscaDicionarioService.buscarNoDicionarioCompleto(Idiomas.SPANISH, palavra.toLowerCase(), SearchStructures.ARRAY_BS);
 
         return ResponseEntity.ok(dicionarioResposta);
     }
