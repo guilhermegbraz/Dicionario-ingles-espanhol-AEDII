@@ -8,7 +8,6 @@ import br.edu.ufabc.aedII.dicionario.repository.Idiomas;
 import br.edu.ufabc.aedII.dicionario.repository.Intervalo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 

@@ -50,7 +50,7 @@ public class DicionarioController {
         return ResponseEntity.ok(dicionarioResposta);
     }
 
-    @GetMapping("/ingles/array_list/{palavra}")
+    @GetMapping("/ingles/array_bs/{palavra}")
     public ResponseEntity<DicionarioResposta> arrayListSearchEnglish(@PathVariable String palavra) {
         DicionarioResposta dicionarioResposta =
                 this.buscaDicionarioService.buscarNoDicionario(Idiomas.ENGLISH, palavra.toLowerCase(), SearchStructures.HASHMAP);

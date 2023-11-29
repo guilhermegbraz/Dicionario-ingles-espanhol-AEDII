@@ -38,7 +38,7 @@ public class CorretorController {
 
     @GetMapping("/ingles/array_list/{palavra}")
     public CorretorResposta arrayListCorretorEngilh(@PathVariable String palavra) {
-        return this.corretorService.executarCorretor(palavra, SearchStructures.ARRAY_LIST, Idiomas.ENGLISH);
+        return this.corretorService.executarCorretor(palavra, SearchStructures.ARRAY_BS, Idiomas.ENGLISH);
     }
 
     @GetMapping("/espanhol/{palavra}")
@@ -59,6 +59,6 @@ public class CorretorController {
     }
     @GetMapping("/espanhol/array_list/{palavra}")
     public CorretorResposta arrayListorretorSpanish(@PathVariable String palavra) {
-        return this.corretorService.executarCorretor(palavra, SearchStructures.ARRAY_LIST, Idiomas.SPANISH);
+        return this.corretorService.executarCorretor(palavra, SearchStructures.ARRAY_BS, Idiomas.SPANISH);
     }
 }

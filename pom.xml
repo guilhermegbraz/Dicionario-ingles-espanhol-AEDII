@@ -17,6 +17,7 @@
 		<java.version>17</java.version>
 		<spring-cloud-azure.version>5.7.0</spring-cloud-azure.version>
 	</properties>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -53,6 +54,12 @@
 			<groupId>org.jsoup</groupId>
 			<artifactId>jsoup</artifactId>
 			<version>1.14.3</version> <!-- Verifique a versão mais recente no repositório Maven -->
+		</dependency>
+
+		<dependency>
+			<groupId>com.googlecode.princeton-java-algorithms</groupId>
+			<artifactId>algorithms</artifactId>
+			<version>4.0.1</version>
 		</dependency>
 
 	</dependencies>

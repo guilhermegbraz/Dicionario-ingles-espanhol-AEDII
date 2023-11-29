@@ -2,50 +2,20 @@ package br.edu.ufabc.aedII.dicionario.model;
 
 import java.util.List;
 
-class Node {
-    String key;
-    List<String> value;
-    int height;
-    Node left, right;
-
-    Node(String k, List<String> v) {
-        key = k;
-        value = v;
-        height = 1;
-    }
-    public void setLeft(Node left) {
-        this.left = left;
-    }
-
-    public void setRight(Node right) {
-        this.right = right;
-    }
-
-    public Node getLeft() {
-        return left;
-    }
-
-    public Node getRight() {
-        return right;
-    }
-
-
-}
-
 public class AVLTree implements SearchStruct{
-    private Node root;
+    private NodeDictionary root;
 
-    private int height(Node node) {
-        return (node == null) ? 0 : node.height;
+    private int height(NodeDictionary nodeDictionary) {
+        return (nodeDictionary == null) ? 0 : nodeDictionary.height;
     }
 
     private int max(int a, int b) {
         return Math.max(a, b);
     }
 
-    private Node rightRotate(Node right) {
-        Node x = right.left;
-        Node T2 = x.right;
+    private NodeDictionary rightRotate(NodeDictionary right) {
+        NodeDictionary x = right.left;
+        NodeDictionary T2 = x.right;
 
         x.right = right;
         right.left = T2;
@@ -56,9 +26,9 @@ public class AVLTree implements SearchStruct{
         return x;
     }
 
-    private Node leftRotate(Node x) {
-        Node y = x.right;
-        Node T2 = y.left;
+    private NodeDictionary leftRotate(NodeDictionary x) {
+        NodeDictionary y = x.right;
+        NodeDictionary T2 = y.left;
 
         y.left = x;
         x.right = T2;
@@ -69,45 +39,45 @@ public class AVLTree implements SearchStruct{
         return y;
     }
 
-    private int getBalance(Node node) {
-        return (node == null) ? 0 : height(node.left) - height(node.right);
+    private int getBalance(NodeDictionary nodeDictionary) {
+        return (nodeDictionary == null) ? 0 : height(nodeDictionary.left) - height(nodeDictionary.right);
     }
 
-    private Node insert(Node node, String key, List<String> value) {
+    private NodeDictionary insert(NodeDictionary nodeDictionary, String key, List<String> value) {
 
-        if (node == null)
-            return new Node(key, value);
+        if (nodeDictionary == null)
+            return new NodeDictionary(key, value);
 
-        if (key.compareTo(node.key) < 0)
-            node.left = insert(node.left, key, value);
-        else if (key.compareTo(node.key) > 0)
-            node.right = insert(node.right, key, value);
+        if (key.compareTo(nodeDictionary.key) < 0)
+            nodeDictionary.left = insert(nodeDictionary.left, key, value);
+        else if (key.compareTo(nodeDictionary.key) > 0)
+            nodeDictionary.right = insert(nodeDictionary.right, key, value);
         else
-            return node;
+            return nodeDictionary;
 
-        node.height = 1 + max(height(node.left), height(node.right));
+        nodeDictionary.height = 1 + max(height(nodeDictionary.left), height(nodeDictionary.right));
 
-        int balance = getBalance(node);
+        int balance = getBalance(nodeDictionary);
 
         if (balance > 1) {
-            if (key.compareTo(node.left.key) < 0)
-                return rightRotate(node);
-            if (key.compareTo(node.left.key) > 0) {
-                node.left = leftRotate(node.left);
-                return rightRotate(node);
+            if (key.compareTo(nodeDictionary.left.key) < 0)
+                return rightRotate(nodeDictionary);
+            if (key.compareTo(nodeDictionary.left.key) > 0) {
+                nodeDictionary.left = leftRotate(nodeDictionary.left);
+                return rightRotate(nodeDictionary);
             }
         }
 
         if (balance < -1) {
-            if (key.compareTo(node.right.key) > 0)
-                return leftRotate(node);
-            if (key.compareTo(node.right.key) < 0) {
-                node.right = rightRotate(node.right);
-                return leftRotate(node);
+            if (key.compareTo(nodeDictionary.right.key) > 0)
+                return leftRotate(nodeDictionary);
+            if (key.compareTo(nodeDictionary.right.key) < 0) {
+                nodeDictionary.right = rightRotate(nodeDictionary.right);
+                return leftRotate(nodeDictionary);
             }
         }
 
-        return node;
+        return nodeDictionary;
     }
 
     public void insert(String key, List<String> value) {
@@ -115,23 +85,23 @@ public class AVLTree implements SearchStruct{
     }
 
 
-    private List<String> search(Node node, String key) {
-        if (node == null) {
+    private List<String> search(NodeDictionary nodeDictionary, String key) {
+        if (nodeDictionary == null) {
             return null;
         }
 
-        int comparison = key.compareTo(node.key);
+        int comparison = key.compareTo(nodeDictionary.key);
 
         if (comparison < 0) {
-            return search(node.left, key);
+            return search(nodeDictionary.left, key);
         }
 
         else if (comparison > 0) {
-            return search(node.right, key);
+            return search(nodeDictionary.right, key);
         }
 
         else {
-            return node.value;
+            return nodeDictionary.value;
         }
     }
 
@@ -145,21 +115,21 @@ public class AVLTree implements SearchStruct{
         root = clearRecursive(root);
     }
 
-    private Node clearRecursive(Node node) {
-        if (node == null) return null;
+    private NodeDictionary clearRecursive(NodeDictionary nodeDictionary) {
+        if (nodeDictionary == null) return null;
 
 
-        node.setLeft(clearRecursive(node.getLeft()));
-        node.setRight(clearRecursive(node.getRight()));
+        nodeDictionary.setLeft(clearRecursive(nodeDictionary.getLeft()));
+        nodeDictionary.setRight(clearRecursive(nodeDictionary.getRight()));
 
         return null;
     }
 
-    private void inOrderTraversal(Node node) {
-        if (node != null) {
-            inOrderTraversal(node.left);
-            System.out.println(node.key + ": " + node.value);
-            inOrderTraversal(node.right);
+    private void inOrderTraversal(NodeDictionary nodeDictionary) {
+        if (nodeDictionary != null) {
+            inOrderTraversal(nodeDictionary.left);
+            System.out.println(nodeDictionary.key + ": " + nodeDictionary.value);
+            inOrderTraversal(nodeDictionary.right);
         }
     }
 
