@@ -1,6 +1,5 @@
 package br.edu.ufabc.aedII.dicionario.model;
 
-import br.edu.ufabc.aedII.dicionario.model.*;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -16,9 +15,11 @@ public class StructuresFactory {
                 return new AVLTree();
             } case HASHMAP -> {
                 return new HashTableSearch();
+            } case BST -> {
+                return new BinarySearchTree();
             }
             default -> {
-                return new ArrayListSearch();
+                return new ArrayBinarySearch();
             }
         }
     }

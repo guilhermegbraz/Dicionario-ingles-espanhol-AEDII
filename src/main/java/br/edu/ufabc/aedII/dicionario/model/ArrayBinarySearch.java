@@ -4,9 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class ArrayListSearch implements SearchStruct {
+public class ArrayBinarySearch implements SearchStruct {
 
-    static class DictionaryWord {
+
+    static class DictionaryWord implements Comparable<DictionaryWord> {
         private final String word;
         private final List<String> meaning;
 
@@ -34,6 +35,12 @@ public class ArrayListSearch implements SearchStruct {
         public int hashCode() {
             return Objects.hash(getWord());
         }
+
+
+        @Override
+        public int compareTo(DictionaryWord word2) {
+            return this.word.compareTo(word2.getWord());
+        }
     }
     private final List<DictionaryWord> words = new ArrayList<>();
 
@@ -45,8 +52,21 @@ public class ArrayListSearch implements SearchStruct {
 
     @Override
     public List<String> search(String word) {
-        int index = this.words.indexOf(new DictionaryWord(word, null));
-        if (index != -1) return this.words.get(index).getMeaning();
+//        int index = this.words.indexOf(new DictionaryWord(word, null));
+//        if (index != -1) return this.words.get(index).getMeaning();
+        this.words.sort(DictionaryWord::compareTo);
+        int inicio = 0;
+        int fim = this.words.size();
+
+        while (inicio < fim) {
+            int meio = inicio + (fim - inicio)/2;
+            if(this.words.get(meio).word.equals(word)) return this.words.get(meio).meaning;
+
+            else if (this.words.get(meio).word.compareTo(word) > 0) inicio = meio + 1;
+
+            else fim = meio - 1;
+        }
+
         return null;
     }
 

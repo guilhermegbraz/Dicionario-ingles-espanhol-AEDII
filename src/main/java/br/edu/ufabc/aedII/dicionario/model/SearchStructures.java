@@ -4,7 +4,8 @@ public enum SearchStructures {
 
     TRIE,
     AVL,
+    BST,
     REED_BLACK,
     HASHMAP,
-    ARRAY_LIST;
+    ARRAY_BS;
 }
