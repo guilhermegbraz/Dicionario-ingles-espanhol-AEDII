@@ -13,7 +13,6 @@ public class NodeDictionary {
         value = v;
         height = 1;
     }
-
     public void setLeft(NodeDictionary left) {
         this.left = left;
     }
