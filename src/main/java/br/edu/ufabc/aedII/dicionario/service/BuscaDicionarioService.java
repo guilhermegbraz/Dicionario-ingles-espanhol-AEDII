@@ -43,7 +43,7 @@ public class BuscaDicionarioService {
             if (definicoes != null) {
                 String definicaoPalavra = definicoes.toString();
                 dicionario.clear();
-                if (idioma.equals(Idiomas.SPANISH)) definicaoPalavra = this.webScraper.getDefinicao(palavraBuscada);
+                //if (idioma.equals(Idiomas.SPANISH)) definicaoPalavra = this.webScraper.getDefinicao(palavraBuscada);
 
                 return new DicionarioResposta(palavraBuscada, definicaoPalavra, tempoTotal);
             }
