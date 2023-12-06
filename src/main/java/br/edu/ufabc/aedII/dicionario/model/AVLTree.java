@@ -118,7 +118,6 @@ public class AVLTree implements SearchStruct{
     private NodeDictionary clearRecursive(NodeDictionary nodeDictionary) {
         if (nodeDictionary == null) return null;
 
-
         nodeDictionary.setLeft(clearRecursive(nodeDictionary.getLeft()));
         nodeDictionary.setRight(clearRecursive(nodeDictionary.getRight()));
 

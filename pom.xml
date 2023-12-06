@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>br.edu.ufabc.aedII.dicionario</groupId>
-	<artifactId>demo</artifactId>
+	<artifactId>dicionario</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>Dicionario Ingles e Espanhol</name>
 	<description>API para dois dicionários e corretores de palavras, nas línguas inglesa e espanhola</description>

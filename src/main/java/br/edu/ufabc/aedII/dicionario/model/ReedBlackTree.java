@@ -5,8 +5,6 @@ import java.util.List;
 
 public class ReedBlackTree implements SearchStruct{
 
-
-
     private RedBlackBST<String, List<String>> dicionario;
 
     public ReedBlackTree() {

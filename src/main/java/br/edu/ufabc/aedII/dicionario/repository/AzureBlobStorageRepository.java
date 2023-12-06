@@ -12,30 +12,31 @@ import java.io.InputStream;
 
 @Service
 public class AzureBlobStorageRepository {
-
     @Autowired
     BlobServiceClient blobServiceClient;
-    public long getTamanhoArquivo(String container, String nomeArquivo) {
+
+    public long getFileSize(String container, String fileName) {
         return this.blobServiceClient
                 .getBlobContainerClient(container)
-                .getBlobClient(nomeArquivo)
+                .getBlobClient(fileName)
                 .getProperties()
                 .getBlobSize();
     }
-    public InputStream baixarArquivoEmChunks(String container, String nomeArquivo, long offset, long length) {
-        try{
+
+    public InputStream downloadFileInChunks(String container, String fileName, long offset, long length) {
+        try {
             BlobRange blobRange = new BlobRange(offset, offset + length);
 
             return this.blobServiceClient
                     .getBlobContainerClient(container)
-                    .getBlobClient(nomeArquivo)
+                    .getBlobClient(fileName)
                     .openInputStream(new BlobInputStreamOptions().setRange(blobRange));
-        }
-        catch (BlobStorageException ex) {
+        } catch (BlobStorageException ex) {
             System.err.println("Azure Storage error: " + ex.getMessage());
             System.err.println("Error details: " + ex.getValue());
         }
         return null;
     }
+
 }
 

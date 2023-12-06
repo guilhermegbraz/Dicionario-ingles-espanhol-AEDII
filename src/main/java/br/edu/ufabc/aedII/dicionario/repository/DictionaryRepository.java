@@ -18,79 +18,77 @@ public class DictionaryRepository {
 
     @Autowired
     private AzureBlobStorageRepository azureBlobStorageRepository;
+
     @Autowired
     private StructuresFactory structuresFactory;
+
     @Autowired
     private EnglishParser englishParser;
+
     @Autowired
     private SpanishParser spanishParser;
 
-    private static final String ENGLISH_SUFIX = " english dictionary.txt";
-    private static final String SPANISH_SUFIX = " spanish dictionary.txt";
+    private static final String ENGLISH_SUFFIX = " english dictionary.txt";
+    private static final String SPANISH_SUFFIX = " spanish dictionary.txt";
 
-    public SearchStruct getDicionarioComDadosDoArquivoParcial(Intervalo intervalo, Idiomas idioma, int pedacoAtual, SearchStructures tipoEstrutura , int numeroPedacos) {
-        String nomeArquivo = this.getNomeArquivo(intervalo, idioma);
-        String container = this.getNomeContainer(intervalo);
-        SearchStruct dictionaryStructure = structuresFactory.getEstrutura(tipoEstrutura);
-        long tamanho = this.azureBlobStorageRepository.getTamanhoArquivo(container, nomeArquivo);
+    public SearchStruct getDictionaryWithPartialFileData(Interval interval, Languages language, int currentChunk, SearchStructures structureType, int numberOfChunks) {
+        String fileName = this.getFileName(interval, language);
+        String container = this.getContainerName(interval);
+        SearchStruct dictionaryStructure = structuresFactory.getStructure(structureType);
+        long size = this.azureBlobStorageRepository.getFileSize(container, fileName);
 
-        try(
+        try (
                 InputStream is = this.azureBlobStorageRepository
-                        .baixarArquivoEmChunks(container, nomeArquivo,
-                                (long) pedacoAtual * Math.toIntExact(tamanho / numeroPedacos + 1),
-                                Math.toIntExact(tamanho / numeroPedacos + 1)
+                        .downloadFileInChunks(container, fileName,
+                                (long) currentChunk * Math.toIntExact(size / numberOfChunks + 1),
+                                Math.toIntExact(size / numberOfChunks + 1)
                         );
-                Scanner leitor = new Scanner(is)
-        )
-        {
-            while (leitor.hasNext()) this.processarLinha(idioma, leitor.nextLine(), dictionaryStructure);
-        }
-        catch (IOException exception) {
-            System.out.println("Erro na leitura do arquivo e criação do Scanner");
+                Scanner reader = new Scanner(is)
+        ) {
+            while (reader.hasNext()) this.processLine(language, reader.nextLine(), dictionaryStructure);
+        } catch (IOException exception) {
+            System.out.println("Error reading file and creating Scanner");
         }
         return dictionaryStructure;
     }
 
-    private void processarLinha(Idiomas idioma, String linha, SearchStruct dicionario) {
+    private void processLine(Languages language, String line, SearchStruct dictionary) {
         try {
             Pair<String, List<String>> parsedLine;
-            if(idioma.equals(Idiomas.ENGLISH)) parsedLine = this.englishParser.parseLine(linha);
-            else parsedLine = this.spanishParser.parseLine(linha);
+            if (language.equals(Languages.ENGLISH)) parsedLine = this.englishParser.parseLine(line);
+            else parsedLine = this.spanishParser.parseLine(line);
 
-            dicionario.insert(parsedLine.getLeft(), parsedLine.getRight());
+            dictionary.insert(parsedLine.getLeft(), parsedLine.getRight());
         } catch (IllegalArgumentException exception) {
             System.err.println(exception.getMessage());
         }
     }
 
-    private String getNomeArquivo(Intervalo intervalo, Idiomas idioma) {
-        if (Objects.requireNonNull(idioma) == Idiomas.ENGLISH) {
-            return intervalo.getDescricao() + ENGLISH_SUFIX;
+    private String getFileName(Interval interval, Languages language) {
+        if (Objects.requireNonNull(language) == Languages.ENGLISH) {
+            return interval.getDescription() + ENGLISH_SUFFIX;
         }
-        return intervalo.getDescricao() + SPANISH_SUFIX;
+        return interval.getDescription() + SPANISH_SUFFIX;
     }
 
-    private String getNomeContainer(Intervalo intervalo) {
-        return intervalo.getDescricao() + "-container";
+    private String getContainerName(Interval interval) {
+        return interval.getDescription() + "-container";
     }
 
-    public SearchStruct getDicionarioComDadosDoArquivoCompleto(Intervalo intervalo, Idiomas idioma,
-                                                               SearchStructures tipoEstrutura) {
-        String nomeArquivo = this.getNomeArquivo(intervalo, idioma);
-        String container = this.getNomeContainer(intervalo);
-        SearchStruct dictionaryStructure = structuresFactory.getEstrutura(tipoEstrutura);
-        long tamanho = this.azureBlobStorageRepository.getTamanhoArquivo(container, nomeArquivo);
+    public SearchStruct getDictionaryWithCompleteFileData(Interval interval, Languages language, SearchStructures structureType) {
+        String fileName = this.getFileName(interval, language);
+        String container = this.getContainerName(interval);
+        SearchStruct dictionaryStructure = structuresFactory.getStructure(structureType);
+        long size = this.azureBlobStorageRepository.getFileSize(container, fileName);
 
-        try(
+        try (
                 InputStream is = this.azureBlobStorageRepository
-                        .baixarArquivoEmChunks(container, nomeArquivo, 0, tamanho);
-                Scanner leitor = new Scanner(is)
-        )
-        {
-            while (leitor.hasNext()) this.processarLinha(idioma, leitor.nextLine(), dictionaryStructure);
-        }
-        catch (IOException exception) {
-            System.out.println("Erro na leitura do arquivo e criação do Scanner");
+                        .downloadFileInChunks(container, fileName, 0, size);
+                Scanner reader = new Scanner(is)
+        ) {
+            while (reader.hasNext()) this.processLine(language, reader.nextLine(), dictionaryStructure);
+        } catch (IOException exception) {
+            System.out.println("Error reading file and creating Scanner");
         }
         return dictionaryStructure;
     }

@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class StructuresFactory {
 
-    public SearchStruct getEstrutura(SearchStructures structure) {
+    public SearchStruct getStructure(SearchStructures structure) {
         switch (structure) {
             case TRIE -> {
                 return new Trie();

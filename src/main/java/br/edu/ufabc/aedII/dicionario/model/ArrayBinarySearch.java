@@ -28,7 +28,7 @@ public class ArrayBinarySearch implements SearchStruct {
         public boolean equals(Object o) {
             if (this == o) return true;
             if (!(o instanceof DictionaryWord that)) return false;
-            return Objects.equals(getWord(), that.getWord());
+            return this.getWord().equals(that.getWord());
         }
 
         @Override
@@ -41,6 +41,13 @@ public class ArrayBinarySearch implements SearchStruct {
         public int compareTo(DictionaryWord word2) {
             return this.word.compareTo(word2.getWord());
         }
+
+        @Override
+        public String toString() {
+            return "DictionaryWord{" +
+                    "word='" + word + '\'' +
+                    '}';
+        }
     }
     private final List<DictionaryWord> words = new ArrayList<>();
 
@@ -52,8 +59,6 @@ public class ArrayBinarySearch implements SearchStruct {
 
     @Override
     public List<String> search(String word) {
-//        int index = this.words.indexOf(new DictionaryWord(word, null));
-//        if (index != -1) return this.words.get(index).getMeaning();
         this.words.sort(DictionaryWord::compareTo);
         int inicio = 0;
         int fim = this.words.size();
@@ -62,9 +67,9 @@ public class ArrayBinarySearch implements SearchStruct {
             int meio = inicio + (fim - inicio)/2;
             if(this.words.get(meio).word.equals(word)) return this.words.get(meio).meaning;
 
-            else if (this.words.get(meio).word.compareTo(word) > 0) inicio = meio + 1;
+            else if (this.words.get(meio).word.compareTo(word) > 0)  fim = meio - 1;
 
-            else fim = meio - 1;
+            else inicio = meio + 1;
         }
 
         return null;

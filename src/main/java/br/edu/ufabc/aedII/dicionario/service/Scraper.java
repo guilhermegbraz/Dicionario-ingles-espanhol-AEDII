@@ -18,7 +18,7 @@ import java.util.stream.Stream;
 public class Scraper {
     private static final Random random = new Random();
     private static final String url = "https://dle.rae.es/";
-    public String getDefinicao(String word) {
+    public String getDefinition(String word) {
 
         List<String> userAgent = List.of("Mozilla/5.0 (iPad; CPU OS 12_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148",
                 "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.83 Safari/537.36",
